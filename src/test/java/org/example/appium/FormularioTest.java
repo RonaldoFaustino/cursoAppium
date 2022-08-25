@@ -84,6 +84,29 @@ public class FormularioTest {
         Assert.assertEquals("Foi selecionado o console errado: ","Nintendo Switch", getText);
     }
 
+    @Test
+    public void deveInteragirSwitchCheckBox() {
+        //Selecionar Fomulario
+        MobileElement  findElement = driverMobile.findElement(By.xpath("//*[@text='Formulário']"));
+        findElement.click();
+
+        //verificar status dos elementos
+        MobileElement check = driverMobile.findElement(By.className("android.widget.CheckBox"));
+        MobileElement switcht = driverMobile.findElement(MobileBy.AccessibilityId("switch"));
+        Assert.assertTrue(check.getAttribute("checked").equals("false"));
+        Assert.assertTrue(switcht.getAttribute("checked").equals("true"));
+
+        //clicar nos elementos
+        check.click();
+        switcht.click();
+
+        //verificar estados alterados
+        Assert.assertFalse(check.getAttribute("checked").equals("false"));
+        Assert.assertFalse(switcht.getAttribute("checked").equals("true"));
+
+
+    }
+
         @After
         public void tearDown() {
             driverMobile.quit();
