@@ -4,6 +4,7 @@ import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
+import org.example.appium.core.DSL;
 import org.example.appium.core.DriverFactory;
 import org.junit.After;
 import org.junit.Assert;
@@ -21,6 +22,8 @@ public class FormularioTest {
 
         private AndroidDriver<MobileElement> driverMobile;
 
+        private DSL dsl = new DSL();
+
         @Before
         public void setUp() throws MalformedURLException {
             driverMobile = DriverFactory.getDriver();
@@ -37,11 +40,12 @@ public class FormularioTest {
             elementosEncontrados.get(1).click();
 
             //Escrever nome
-            MobileElement campoNome = driverMobile.findElement(MobileBy.AccessibilityId("nome"));
-            campoNome.sendKeys("Teste");
+            dsl.escrever(MobileBy.AccessibilityId("nome"),"Teste");
+            //MobileElement campoNome = driverMobile.findElement(MobileBy.AccessibilityId("nome"));
+            //campoNome.sendKeys("Teste");
+
             //Validar Nome
-            String text = campoNome.getText();
-            Assert.assertEquals("Campo nome está errado: ","Teste",text);
+            Assert.assertEquals("Campo nome está errado: ","Teste",dsl.obterTexto(MobileBy.AccessibilityId("nome")));
         }
 
     @Test
@@ -51,13 +55,11 @@ public class FormularioTest {
         findElement.click();
 
         //Clicar no Combo
-        driverMobile.findElement(MobileBy.AccessibilityId("console")).click();
-
         //Selecionar a opção desejada
-        driverMobile.findElement(By.xpath("//android.widget.CheckedTextView[@text='Nintendo Switch']")).click();
+        dsl.selecionarCombo(MobileBy.AccessibilityId("console"),"Nintendo Switch");
 
         //verificar a opção selecionada
-        String getText = driverMobile.findElement(By.xpath("//android.widget.Spinner/android.widget.TextView")).getText();
+        String getText = dsl.obterTexto(By.xpath("//android.widget.Spinner/android.widget.TextView"));
         Assert.assertEquals("Foi selecionado o console errado: ","Nintendo Switch", getText);
     }
 
@@ -68,20 +70,16 @@ public class FormularioTest {
         findElement.click();
 
         //verificar status dos elementos
-        MobileElement check = driverMobile.findElement(By.className("android.widget.CheckBox"));
-        MobileElement switcht = driverMobile.findElement(MobileBy.AccessibilityId("switch"));
-        Assert.assertTrue(check.getAttribute("checked").equals("false"));
-        Assert.assertTrue(switcht.getAttribute("checked").equals("true"));
+        Assert.assertFalse(dsl.isCheckMarcado(By.className("android.widget.CheckBox")));
+        Assert.assertTrue(dsl.isCheckMarcado(MobileBy.AccessibilityId("switch")));
 
         //clicar nos elementos
-        check.click();
-        switcht.click();
+        dsl.clicar(By.className("android.widget.CheckBox"));
+        dsl.clicar(MobileBy.AccessibilityId("switch"));
 
         //verificar estados alterados
-        Assert.assertFalse(check.getAttribute("checked").equals("false"));
-        Assert.assertFalse(switcht.getAttribute("checked").equals("true"));
-
-
+        Assert.assertTrue(dsl.isCheckMarcado(By.className("android.widget.CheckBox")));
+        Assert.assertFalse(dsl.isCheckMarcado(MobileBy.AccessibilityId("switch")));
     }
 
     @Test
@@ -91,35 +89,28 @@ public class FormularioTest {
         findElement.click();
 
         //Escrever nome
-        MobileElement campoNome = driverMobile.findElement(MobileBy.AccessibilityId("nome"));
-        campoNome.sendKeys("Teste");
+        dsl.escrever(MobileBy.AccessibilityId("nome"),"Teste");
+
         //Validar Nome
-        String text = campoNome.getText();
-        Assert.assertEquals("Campo nome está errado: ","Teste",text);
+        Assert.assertEquals("Campo nome está errado: ","Teste",dsl.obterTexto(MobileBy.AccessibilityId("nome")));
 
         //Clicar no Combo
-        driverMobile.findElement(MobileBy.AccessibilityId("console")).click();
-
-        //Selecionar a opção desejada
-        driverMobile.findElement(By.xpath("//android.widget.CheckedTextView[@text='Nintendo Switch']")).click();
+        dsl.selecionarCombo(MobileBy.AccessibilityId("console"),"Nintendo Switch");
 
         //verificar a opção selecionada
-        String getText = driverMobile.findElement(By.xpath("//android.widget.Spinner/android.widget.TextView")).getText();
-        Assert.assertEquals("Foi selecionado o console errado: ","Nintendo Switch", getText);
+        Assert.assertEquals("Foi selecionado o console errado: ","Nintendo Switch", dsl.obterTexto(By.xpath("//android.widget.Spinner/android.widget.TextView")));
 
-        //verificar status dos elementos
-        MobileElement check = driverMobile.findElement(By.className("android.widget.CheckBox"));
-        MobileElement switcht = driverMobile.findElement(MobileBy.AccessibilityId("switch"));
-        Assert.assertTrue(check.getAttribute("checked").equals("false"));
-        Assert.assertTrue(switcht.getAttribute("checked").equals("true"));
+        ///verificar status dos elementos
+        Assert.assertFalse(dsl.isCheckMarcado(By.className("android.widget.CheckBox")));
+        Assert.assertTrue(dsl.isCheckMarcado(MobileBy.AccessibilityId("switch")));
 
         //clicar nos elementos
-        check.click();
-        switcht.click();
+        dsl.clicar(By.className("android.widget.CheckBox"));
+        dsl.clicar(MobileBy.AccessibilityId("switch"));
 
         //verificar estados alterados
-        Assert.assertFalse(check.getAttribute("checked").equals("false"));
-        Assert.assertFalse(switcht.getAttribute("checked").equals("true"));
+        Assert.assertTrue(dsl.isCheckMarcado(By.className("android.widget.CheckBox")));
+        Assert.assertFalse(dsl.isCheckMarcado(MobileBy.AccessibilityId("switch")));
 
 
     }

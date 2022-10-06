@@ -3,7 +3,6 @@ package org.example.appium.core;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
-import org.aspectj.lang.annotation.Before;
 import org.openqa.selenium.By;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
@@ -14,7 +13,6 @@ import java.util.concurrent.TimeUnit;
 public class DriverFactory {
 
     private static AndroidDriver<MobileElement> driverMobile;
-
 
     public static AndroidDriver<MobileElement> getDriver(){
         if (driverMobile == null){
