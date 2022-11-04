@@ -1,4 +1,4 @@
-package org.example.appium.core;
+package org.example.core;
 
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
