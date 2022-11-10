@@ -38,4 +38,12 @@ public class FormularioPage extends BasePage {
         return isCheckMarcado(MobileBy.AccessibilityId("switch"));
     }
 
+    public void salvar(){
+        clicar(By.xpath("//android.widget.Button[@content-desc=\"save\"]/android.widget.TextView"));
+    }
+
+    public void salvarDemorado(){
+        clicarPorTexto("SALVAR DEMORADO");
+    }
+
 }

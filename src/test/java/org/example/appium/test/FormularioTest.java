@@ -103,6 +103,51 @@ public class FormularioTest extends BaseTest {
         //verificar estados alterados
         Assert.assertTrue(formularioPage.isCheckMarcado());
         Assert.assertFalse(formularioPage.isSwitchMarcado());
+
+        formularioPage.salvar();
+
+        //verificacoes
+        Assert.assertEquals("Nome: Teste", formularioPage.obterNomeCadastrado());
+        Assert.assertEquals("Console: switch",formularioPage.obterConsoleCadastrado());
+        Assert.assertTrue(formularioPage.obterCheckCadastrado().endsWith("Marcado"));
+        Assert.assertTrue(formularioPage.obterSwitchCadastrado().endsWith("Off"));
     }
 
+    @Test
+    public void devePreencherFomularioCompletoDemorado() {
+        //Selecionar Fomulario
+        menuPage.acessarFormulario();
+
+        //Escrever nome
+        formularioPage.escreverNome("Teste");
+
+        //Validar Nome
+        Assert.assertEquals("Campo nome está errado: ", "Teste", formularioPage.obterNome());
+
+        //Clicar no Combo
+        formularioPage.selecionarCombo("Nintendo Switch");
+
+        //verificar a opção selecionada
+        Assert.assertEquals("Foi selecionado o console errado: ", "Nintendo Switch", formularioPage.obterValorCombo());
+
+        ///verificar status dos elementos
+        Assert.assertFalse(formularioPage.isCheckMarcado());
+        Assert.assertTrue(formularioPage.isSwitchMarcado());
+
+        //clicar nos elementos
+        formularioPage.clicarCheck();
+        formularioPage.clicarSwitch();
+
+        //verificar estados alterados
+        Assert.assertTrue(formularioPage.isCheckMarcado());
+        Assert.assertFalse(formularioPage.isSwitchMarcado());
+
+        formularioPage.salvarDemorado();
+
+        //verificacoes
+        Assert.assertEquals("Nome: Teste", formularioPage.obterNomeCadastrado());
+        Assert.assertEquals("Console: switch",formularioPage.obterConsoleCadastrado());
+        Assert.assertTrue(formularioPage.obterCheckCadastrado().endsWith("Marcado"));
+        Assert.assertTrue(formularioPage.obterSwitchCadastrado().endsWith("Off"));
+    }
 }

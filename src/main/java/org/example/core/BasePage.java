@@ -29,4 +29,22 @@ public class BasePage {
     public boolean isCheckMarcado(By by){
         return  DriverFactory.getDriver().findElement(by).getAttribute("checked").equals("true");
     }
+
+    public String obterNomeCadastrado(){
+        return obterTexto(By.xpath("//android.widget.TextView[starts-with(@text, 'Nome:')]"));
+    }
+
+    public String obterConsoleCadastrado(){
+        return obterTexto(By.xpath("//android.widget.TextView[starts-with(@text, 'Console:')]"));
+    }
+
+    public String obterCheckCadastrado(){
+        return obterTexto(By.xpath("//android.widget.TextView[starts-with(@text, 'Checkbox:')]"));
+    }
+
+    public String obterSwitchCadastrado(){
+        return obterTexto(By.xpath("//android.widget.TextView[starts-with(@text, 'Switch:')]"));
+    }
+
+
 }
