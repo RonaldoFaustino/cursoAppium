@@ -1,6 +1,9 @@
 package org.example.core;
 
+import io.appium.java_client.MobileElement;
 import org.openqa.selenium.By;
+
+import java.util.List;
 
 public class BasePage {
 
@@ -44,6 +47,11 @@ public class BasePage {
 
     public String obterSwitchCadastrado(){
         return obterTexto(By.xpath("//android.widget.TextView[starts-with(@text, 'Switch:')]"));
+    }
+
+    public boolean existeUmElementoPorTexto(String texto){
+         List<MobileElement> elementos = DriverFactory.getDriver().findElements(By.xpath("//*[@text='"+texto+"']"));
+         return elementos.size() > 0;
     }
 
 
