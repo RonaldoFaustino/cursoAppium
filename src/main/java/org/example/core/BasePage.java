@@ -1,6 +1,8 @@
 package org.example.core;
 
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.TouchAction;
+import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.By;
 
 import java.util.List;
@@ -13,7 +15,6 @@ public class BasePage {
 
     public String obterTexto(By by){
         return DriverFactory.getDriver().findElement(by).getText();
-
     }
 
     public void selecionarCombo(By by, String valor){
@@ -52,6 +53,11 @@ public class BasePage {
     public boolean existeUmElementoPorTexto(String texto){
          List<MobileElement> elementos = DriverFactory.getDriver().findElements(By.xpath("//*[@text='"+texto+"']"));
          return elementos.size() > 0;
+    }
+
+    public void tap(int x, int y){
+        new TouchAction(DriverFactory.getDriver()).tap(PointOption.point(x, y)).perform();
+
     }
 
 
