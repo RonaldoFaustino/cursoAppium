@@ -1,7 +1,6 @@
 package org.example.appium.test;
 
 import io.appium.java_client.MobileBy;
-import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import org.example.appium.test.core.BaseTest;
 import org.example.core.DriverFactory;
@@ -15,7 +14,7 @@ import java.net.MalformedURLException;
 
 public class DatePicker extends BaseTest {
 
-    private AndroidDriver<MobileElement> driverMobile;
+    private AndroidDriver driverMobile;
 
     private MenuPage menuPage = new MenuPage();
 

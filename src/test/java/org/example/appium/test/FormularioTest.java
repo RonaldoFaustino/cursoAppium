@@ -1,6 +1,6 @@
 package org.example.appium.test;
 
-import io.appium.java_client.MobileElement;
+
 import io.appium.java_client.android.AndroidDriver;
 import org.example.appium.test.core.BaseTest;
 import org.example.core.DriverFactory;
@@ -10,13 +10,14 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 import java.net.MalformedURLException;
 import java.util.List;
 
 public class FormularioTest extends BaseTest {
 
-    private AndroidDriver<MobileElement> driverMobile;
+    private AndroidDriver driverMobile;
 
     private MenuPage menuPage = new MenuPage();
 
@@ -31,8 +32,8 @@ public class FormularioTest extends BaseTest {
     @Test
     public void devePreencherCampoTexto() {
         //Selecionar Fomulario
-        List<MobileElement> elementosEncontrados = driverMobile.findElements(By.className("android.widget.TextView"));
-        for (MobileElement elementos : elementosEncontrados) {
+        List<WebElement> elementosEncontrados = driverMobile.findElements(By.className("android.widget.TextView"));
+        for (WebElement elementos : elementosEncontrados) {
             System.out.println(elementos.getText());
         }
         elementosEncontrados.get(1).click();

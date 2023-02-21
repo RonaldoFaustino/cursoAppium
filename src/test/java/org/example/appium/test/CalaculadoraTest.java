@@ -1,10 +1,13 @@
 package org.example.appium.test;
 
-import io.appium.java_client.MobileElement;
+import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.MalformedURLException;
@@ -12,7 +15,7 @@ import java.net.URL;
 
 public class CalaculadoraTest {
 
-        private AndroidDriver<MobileElement> driverMobile;
+        private AndroidDriver driverMobile;
 
         @Before
         public void setUp() throws MalformedURLException {
@@ -33,14 +36,18 @@ public class CalaculadoraTest {
 
         @Test
         public void sampleTest() {
-            MobileElement el1 = (MobileElement) driverMobile.findElementByAccessibilityId("2");
+            WebElement el1 = driverMobile.findElement(By.xpath("//android.widget.ImageButton[@content-desc='2']"));
             el1.click();
-            MobileElement el2 = (MobileElement) driverMobile.findElementByAccessibilityId("plus");
+            WebElement el2 = driverMobile.findElement(AppiumBy.accessibilityId("plus"));
             el2.click();
-            MobileElement el3 = (MobileElement) driverMobile.findElementByAccessibilityId("2");
+            WebElement el3 = (WebElement) driverMobile.findElement(AppiumBy.accessibilityId("2"));
             el3.click();
-            MobileElement el4 = (MobileElement) driverMobile.findElementById("com.google.android.calculator:id/result_preview");
+            WebElement el4 = (WebElement) driverMobile.findElement(AppiumBy.id("com.google.android.calculator:id/eq"));
             el4.click();
+
+            WebElement resultado = driverMobile.findElement(AppiumBy.id("com.google.android.calculator:id/result_final"));
+
+            Assert.assertEquals("O resultado esperdo não é 4","4", resultado.getText());
         }
 
         @After

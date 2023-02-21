@@ -1,6 +1,6 @@
 package org.example.core;
 
-import io.appium.java_client.MobileElement;
+
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
 import org.openqa.selenium.By;
@@ -12,9 +12,9 @@ import java.util.concurrent.TimeUnit;
 
 public class DriverFactory {
 
-    private static AndroidDriver<MobileElement> driverMobile;
+    private static AndroidDriver driverMobile;
 
-    public static AndroidDriver<MobileElement> getDriver(){
+    public static AndroidDriver getDriver(){
         if (driverMobile == null){
             createDriver();
         }
@@ -42,7 +42,7 @@ public class DriverFactory {
         desiredCapabilities.setCapability("appWaitActivity", "com.android.packageinstaller.permission.ui.ReviewPermissionsActivity");
 
         try {
-            driverMobile = new AndroidDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"), desiredCapabilities);
+            driverMobile = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), desiredCapabilities);
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
