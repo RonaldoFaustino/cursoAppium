@@ -97,7 +97,7 @@ public class BasePage {
         dragNDrop.perform();
     }
 
-    public void swipeDireita(double inicio, double fim){
+    public void swipe(double inicio, double fim){
 //        Dimension size = getDriver().manage().window().getSize();
 //
 //        int centerX = size.height / 2;
@@ -137,15 +137,25 @@ public class BasePage {
         getDriver().perform(Arrays.asList(swipe));
     }
 
-    public void swipeEsquerda(){
+    public void swipeElementos(WebElement ele01, double inicio, double fim){
+//        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
+//        wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//*[@text='Opção 1']")));
+
         //Scrollable Element
-        WebElement ele01 = getDriver().findElement(AppiumBy.className("android.widget.TextView"));
+        //WebElement ele01 = getDriver().findElement(AppiumBy.xpath("//android.widget.TextView[starts-with(@text, '"+texto+"')]"));
 
-        int centerX = ele01.getRect().x + (ele01.getSize().width/2);
+        int centerX = ele01.getLocation().y + ele01.getSize().height /2;
 
-        double startY = ele01.getRect().y + (ele01.getSize().height * 0.9);
+        int startY = (int) (ele01.getSize().width * inicio);
 
-        double endY = ele01.getRect().y + (ele01.getSize().height * 0.1);
+        int endY = (int) (ele01.getSize().width * fim);
+
+
+//        int centerX = ele01.getRect().x + (ele01.getSize().height/2);
+//
+//        double startY = ele01.getRect().y + (ele01.getSize().width * inicio);
+//
+//        double endY = ele01.getRect().y + (ele01.getSize().width * fim);
         //Type of Pointer Input
         PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH,"finger");
         //Creating Sequence object to add actions
