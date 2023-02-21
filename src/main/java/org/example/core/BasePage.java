@@ -1,13 +1,17 @@
 package org.example.core;
 
+import io.appium.java_client.AppiumBy;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.PointerInput;
+import org.openqa.selenium.interactions.Sequence;
 
 import java.time.Duration;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.example.core.DriverFactory.getDriver;
@@ -91,6 +95,73 @@ public class BasePage {
                 .release();
 
         dragNDrop.perform();
+    }
+
+    public void swipeDireita(double inicio, double fim){
+//        Dimension size = getDriver().manage().window().getSize();
+//
+//        int centerX = size.height / 2;
+//
+//        int startY = (int) (size.width * inicio);
+//        int endY = (int) (size.width * fim);
+
+//                new TouchAction(getDriver()).press(start_x, y)
+//                .waitAction(Duration.ofMillis(500))
+//                .moveTo(end_x,y)
+//                .release()
+//                .perform();
+
+        //Scrollable Element
+        WebElement ele01 = getDriver().findElement(AppiumBy.className("android.widget.TextView"));
+
+        int centerX = ele01.getRect().x + (ele01.getSize().width/2);
+
+        double startY = ele01.getRect().y + (ele01.getSize().height * inicio);
+
+        double endY = ele01.getRect().y + (ele01.getSize().height * fim);
+        //Type of Pointer Input
+        PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH,"finger");
+        //Creating Sequence object to add actions
+        Sequence swipe = new Sequence(finger,1);
+        //Move finger into starting position
+        swipe.addAction(finger.createPointerMove(Duration.ofSeconds(0),PointerInput.Origin.viewport(),centerX,(int)startY));
+        //Finger comes down into contact with screen
+        swipe.addAction(finger.createPointerDown(0));
+        //Finger moves to end position
+        swipe.addAction(finger.createPointerMove(Duration.ofMillis(700),
+                PointerInput.Origin.viewport(),centerX, (int)endY));
+        //Get up Finger from Srceen
+        swipe.addAction(finger.createPointerUp(0));
+
+        //Perform the actions
+        getDriver().perform(Arrays.asList(swipe));
+    }
+
+    public void swipeEsquerda(){
+        //Scrollable Element
+        WebElement ele01 = getDriver().findElement(AppiumBy.className("android.widget.TextView"));
+
+        int centerX = ele01.getRect().x + (ele01.getSize().width/2);
+
+        double startY = ele01.getRect().y + (ele01.getSize().height * 0.9);
+
+        double endY = ele01.getRect().y + (ele01.getSize().height * 0.1);
+        //Type of Pointer Input
+        PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH,"finger");
+        //Creating Sequence object to add actions
+        Sequence swipe = new Sequence(finger,1);
+        //Move finger into starting position
+        swipe.addAction(finger.createPointerMove(Duration.ofSeconds(0),PointerInput.Origin.viewport(),centerX,(int)endY));
+        //Finger comes down into contact with screen
+        swipe.addAction(finger.createPointerDown(0));
+        //Finger moves to end position
+        swipe.addAction(finger.createPointerMove(Duration.ofMillis(700),
+                PointerInput.Origin.viewport(),centerX, (int)startY));
+        //Get up Finger from Srceen
+        swipe.addAction(finger.createPointerUp(0));
+
+        //Perform the actions
+        getDriver().perform(Arrays.asList(swipe));
     }
 
     public String obterTituloAlerta(){
