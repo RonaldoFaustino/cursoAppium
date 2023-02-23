@@ -15,5 +15,8 @@ public class SwipeElementTest extends BaseTest {
 
         menuPage.clicarSwipeList();
         swipeListPage.swipeelementoRigth("Opção 3");
+
+        //TODO
+        // finalizar teste swipe list
     }
 }

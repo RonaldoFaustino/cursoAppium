@@ -182,5 +182,9 @@ public class BasePage {
         return obterTexto(By.id("android:id/message"));
     }
 
+    public void aguardar(long time) throws InterruptedException {
+        Thread.sleep(time);
+    }
+
 
 }
